@@ -8,10 +8,10 @@ public class Corsi implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 4980956984399067851L;
-	private int idCorso;
+	private Integer idCorso;
 	private String nomeCorso, dataInizio, dataFine;
 
-	public Corsi(int idCorso, String nomeCorso, String dataInizio, String dataFine) {
+	public Corsi(Integer idCorso, String nomeCorso, String dataInizio, String dataFine) {
 		this.idCorso = idCorso;
 		this.nomeCorso = nomeCorso;
 		this.dataInizio = dataInizio;
@@ -22,11 +22,11 @@ public class Corsi implements Serializable {
 
 	}
 
-	public int getIdCorso() {
+	public Integer getIdCorso() {
 		return idCorso;
 	}
 
-	public void setIdCorso(int idCorso) {
+	public void setIdCorso(Integer idCorso) {
 		this.idCorso = idCorso;
 	}
 

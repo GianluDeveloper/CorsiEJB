@@ -77,7 +77,7 @@ public class CorsiDao implements Dao<Corsi> {
 		List<Object> objs = dbHandler.getResponse();
 		for (Object obj : objs) {
 			Object[] tmp = (Object[]) obj;
-			Corsi c = new Corsi((int) tmp[0], (String) tmp[1], DateHandler.fromSql((java.sql.Date) tmp[2]),
+			Corsi c = new Corsi((Integer) tmp[0], (String) tmp[1], DateHandler.fromSql((java.sql.Date) tmp[2]),
 					DateHandler.fromSql((java.sql.Date) tmp[3]));
 			res.add(c);
 		}
@@ -104,7 +104,7 @@ public class CorsiDao implements Dao<Corsi> {
 		List<Object> objs = dbHandler.getResponse();
 		for (Object obj : objs) {
 			Object[] tmp = (Object[]) obj;
-			Corsi c = new Corsi((int) tmp[0], (String) tmp[1], DateHandler.fromSql((java.sql.Date) tmp[2]),
+			Corsi c = new Corsi((Integer) tmp[0], (String) tmp[1], DateHandler.fromSql((java.sql.Date) tmp[2]),
 					DateHandler.fromSql((java.sql.Date) tmp[3]));
 			res.add(c);
 		}
@@ -112,7 +112,7 @@ public class CorsiDao implements Dao<Corsi> {
 	}
 
 	@Override
-	public Corsi findById(int id)
+	public Corsi findById(Integer id)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
 		Corsi corso = new Corsi();
@@ -125,7 +125,7 @@ public class CorsiDao implements Dao<Corsi> {
 		List<Object> objs = dbHandler.getResponse();
 		for (Object obj : objs) {
 			Object[] tmp = (Object[]) obj;
-			corso = new Corsi((int) tmp[0], (String) tmp[1], DateHandler.fromSql((java.sql.Date) tmp[2]),
+			corso = new Corsi((Integer) tmp[0], (String) tmp[1], DateHandler.fromSql((java.sql.Date) tmp[2]),
 					DateHandler.fromSql((java.sql.Date) tmp[3]));
 		}
 		return corso;

@@ -1,6 +1,12 @@
 package response;
 
-public class Response {
+import java.io.Serializable;
+
+public class Response  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1819577657666809227L;
 	boolean successo = false;
 	int errorCode = 0;
 	String description = "";

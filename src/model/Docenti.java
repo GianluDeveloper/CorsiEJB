@@ -1,7 +1,13 @@
 package model;
 
-public class Docenti {
-	
+import java.io.Serializable;
+
+public class Docenti implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2264431570213490775L;
 	private int idDocente, idCorso;
 	private String nomeDocente;
 

@@ -106,7 +106,7 @@ public class IscrizioniDao implements Dao<Iscrizioni> {
 	}
 
 	@Override
-	public Iscrizioni findById(int id)
+	public Iscrizioni findById(Integer id)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
 		Iscrizioni corso = new Iscrizioni();

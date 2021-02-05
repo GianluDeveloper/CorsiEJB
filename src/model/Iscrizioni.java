@@ -1,7 +1,13 @@
 package model;
 
-public class Iscrizioni {
+import java.io.Serializable;
 
+public class Iscrizioni implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3269812542241503999L;
 	private int idIscrizione, idDipendente, idDocente, idCorso;
 
 	public Iscrizioni(int idIscrizione, int idDipendente, int idDocente, int idCorso) {

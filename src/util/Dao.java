@@ -20,6 +20,6 @@ public interface Dao<T> {
 
 	public List<T> findAll(Boolean reverse) throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException;
 
-	public T findById(int id) throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException;
+	public T findById(Integer id) throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException;
 	
 }

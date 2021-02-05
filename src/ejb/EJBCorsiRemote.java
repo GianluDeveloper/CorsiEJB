@@ -9,6 +9,7 @@ import util.RicercaDb;
 
 @Remote
 public interface EJBCorsiRemote {
+
 	public Response insert(Corsi o);
 
 	public Response update(Corsi o);

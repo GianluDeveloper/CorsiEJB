@@ -19,7 +19,7 @@ public class DocentiDao implements Dao<Docenti> {
 	public void insert(Docenti o)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
-		Object[] campi = { o.getIdDocente(), o.getIdCorso(), o.getNomeDocente() };
+		Object[] campi = { o.getIdCorso(), o.getNomeDocente() };
 		String sql = "INSERT INTO `docenti`(`idDocente`, `idCorso`, `nomeDocente`) VALUES ( NULL, ?, ? )";
 		DBHandler dbHandler = new DBHandler();
 		dbHandler.sql(sql, campi);
@@ -106,7 +106,7 @@ public class DocentiDao implements Dao<Docenti> {
 	}
 
 	@Override
-	public Docenti findById(int id)
+	public Docenti findById(Integer id)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
 		Docenti corso = new Docenti();

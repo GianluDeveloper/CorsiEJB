@@ -27,4 +27,10 @@ public class Test implements TestRemote, TestLocal {
     	System.out.println("Sono Pluto");
     	return "Sono Pluto!";
     }
+    public Corso nuovoCorso(Corso c) {
+    	String corsoCheck = c.getNome()+" ATTIVATO";
+    	c.setNome(corsoCheck);
+    	
+    	return c;
+    }
 }

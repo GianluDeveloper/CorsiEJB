@@ -6,4 +6,5 @@ import javax.ejb.Local;
 public interface TestLocal {
 	public String pippo(String msg);
 	public String pluto();
+	public Corso nuovoCorso(Corso c);
 }

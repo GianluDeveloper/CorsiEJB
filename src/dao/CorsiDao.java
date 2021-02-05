@@ -1,44 +1,134 @@
 package dao;
 
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.naming.NamingException;
+
+import exceptions.NotHandledTypeException;
 import model.Corsi;
+import util.DBHandler;
 import util.Dao;
+import util.DateHandler;
+import util.RicercaDb;
 
 public class CorsiDao implements Dao<Corsi> {
 
 	@Override
-	public void insert(Corsi o) {
+	public void insert(Corsi o)
+			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
-
+		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()),
+				DateHandler.toSql(o.getDataFine()) };
+		String sql = "INSERT INTO `corsi`(`idCorso`, `nomeCorso`, `dataInizio`, `dataFine`) VALUES ( NULL, ?, ?, ? )";
+		DBHandler dbHandler = new DBHandler();
+		dbHandler.sql(sql, campi);
 	}
 
 	@Override
-	public void update(Corsi o) {
+	public void update(Corsi o)
+			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
 
+		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()), DateHandler.toSql(o.getDataFine()),
+				o.getIdCorso() };
+		String sql = "UPDATE `corsi` SET `nomeCorso`=?,`dataInizio`=?,`dataFine`=? WHERE `idCorso`=?";
+		DBHandler dbHandler = new DBHandler();
+		dbHandler.sql(sql, campi);
 	}
 
 	@Override
-	public void delete(Corsi o) {
+	public void delete(Corsi o)
+			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
-
+		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()), DateHandler.toSql(o.getDataFine()),
+				o.getIdCorso() };
+		String sql = "DELETE `corsi` WHERE `idCorso`=?";
+		DBHandler dbHandler = new DBHandler();
+		dbHandler.sql(sql, campi);
 	}
 
 	@Override
-	public void find(Corsi o) {
+	public List<Corsi> find(RicercaDb o)
+			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
+		String key = o.getKey();
+		String value = o.getValue();
 
+		List<Corsi> res = new ArrayList<>();
+		String[] allowed = { "idCorso", "nomeCorso", "dataInizio", "dataFine" };
+		boolean notAllowed = true;
+		for (String allow : allowed) {
+			if (key.equals(allow)) {
+				notAllowed = false;
+				break;
+			}
+		}
+		if (notAllowed) {
+			throw new SQLException("Chiave colonna '" + key + "' non valida");
+		}
+
+		Object[] campi = { value };
+		String sql = "SELECT * FROM `corsi` WHERE `" + key + "`=?  ";
+		DBHandler dbHandler = new DBHandler();
+		dbHandler.sql(sql, campi);
+		List<Object> objs = dbHandler.getResponse();
+		for (Object obj : objs) {
+			Object[] tmp = (Object[]) obj;
+			Corsi c = new Corsi((int) tmp[0], (String) tmp[1], DateHandler.fromSql((java.sql.Date) tmp[2]),
+					DateHandler.fromSql((java.sql.Date) tmp[3]));
+			res.add(c);
+		}
+		return res;
 	}
 
 	@Override
-	public void findAll(Corsi o) {
-		// TODO Auto-generated method stub
+	public List<Corsi> findAll(Boolean reverse)
+			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 
+		List<Corsi> res = new ArrayList<>();
+
+		Object[] campi = { 1 };
+
+		String sql = "SELECT * FROM `corsi` WHERE ? ORDER BY `idCorso` ";
+		if (reverse)
+			sql += "DESC";
+
+		else
+			sql += "ASC";
+
+		DBHandler dbHandler = new DBHandler();
+		dbHandler.sql(sql, campi);
+		List<Object> objs = dbHandler.getResponse();
+		for (Object obj : objs) {
+			Object[] tmp = (Object[]) obj;
+			Corsi c = new Corsi((int) tmp[0], (String) tmp[1], DateHandler.fromSql((java.sql.Date) tmp[2]),
+					DateHandler.fromSql((java.sql.Date) tmp[3]));
+			res.add(c);
+		}
+		return res;
 	}
 
 	@Override
-	public void findById(int id) {
+	public Corsi findById(int id)
+			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
+		Corsi corso = new Corsi();
 
+		Object[] campi = { 1 };
+
+		String sql = "SELECT * FROM `corsi` WHERE idCorso = ? ";
+		DBHandler dbHandler = new DBHandler();
+		dbHandler.sql(sql, campi);
+		List<Object> objs = dbHandler.getResponse();
+		for (Object obj : objs) {
+			Object[] tmp = (Object[]) obj;
+			corso = new Corsi((int) tmp[0], (String) tmp[1], DateHandler.fromSql((java.sql.Date) tmp[2]),
+					DateHandler.fromSql((java.sql.Date) tmp[3]));
+		}
+		return corso;
 	}
 
 }

@@ -1,59 +1,102 @@
 package ejb;
 
+import java.sql.SQLException;
+import java.text.ParseException;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.naming.NamingException;
 
+import dao.DocentiDao;
+import exceptions.NotHandledTypeException;
 import model.Docenti;
-import util.Dao;
+import response.Response;
+import response.ResponseDao;
+import util.EJB;
+import util.RicercaDb;
 
 /**
  * Session Bean implementation class EJBDocenti
  */
 @Stateless
 @LocalBean
-public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal,Dao<Docenti> {
+public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal,EJB<Docenti> {
 
-    /**
-     * Default constructor. 
-     */
-    public EJBDocenti() {
-        // TODO Auto-generated constructor stub
-    }
+	DocentiDao dao = new DocentiDao();
 
 	@Override
-	public void insert(Docenti o) {
+	public Response insert(Docenti o) {
 		// TODO Auto-generated method stub
-		
+		Response r = new Response();
+		try {
+			dao.insert(o);
+		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			r.setErrorCode(1000);
+			r.setDescription(e.getStackTrace().toString());
+		}
+		return r;
 	}
 
 	@Override
-	public void update(Docenti o) {
+	public Response update(Docenti o) {
 		// TODO Auto-generated method stub
-		
+		Response r = new Response();
+		try {
+			dao.update(o);
+		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			r.setErrorCode(1000);
+			r.setDescription(e.getStackTrace().toString());
+		}
+		return r;
 	}
 
 	@Override
-	public void delete(Docenti o) {
+	public Response delete(Docenti o) {
 		// TODO Auto-generated method stub
-		
+		Response r = new Response();
+		try {
+			dao.delete(o);
+		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			r.setErrorCode(1000);
+			r.setDescription(e.getStackTrace().toString());
+		}
+		return r;
 	}
 
 	@Override
-	public void find(Docenti o) {
+	public ResponseDao<Docenti> find(RicercaDb o) {
 		// TODO Auto-generated method stub
-		
+		ResponseDao<Docenti> r = new ResponseDao<>();
+		try {
+			r.setList(dao.find(o));
+		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			r.setErrorCode(1000);
+			r.setDescription(e.getStackTrace().toString());
+		}
+		return r;
 	}
 
 	@Override
-	public void findAll(Docenti o) {
+	public ResponseDao<Docenti> findAll(Boolean reverse) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void findById(int id) {
-		// TODO Auto-generated method stub
-		
-	}
+		ResponseDao<Docenti> r = new ResponseDao<>();
+		try {
+			r.setList(dao.findAll(reverse));
+		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			r.setErrorCode(1000);
+			r.setDescription(e.getStackTrace().toString());
+		}
+		return r;
+	}    
 
 }

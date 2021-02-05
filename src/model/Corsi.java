@@ -1,7 +1,13 @@
 package model;
 
-public class Corsi {
+import java.io.Serializable;
 
+public class Corsi implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4980956984399067851L;
 	private int idCorso;
 	private String nomeCorso, dataInizio, dataFine;
 

@@ -1,17 +1,25 @@
 package util;
 
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.List;
+
+import javax.naming.NamingException;
+
+import exceptions.NotHandledTypeException;
+
 public interface Dao<T> {
 	
-	public void insert(T o);
+	public void insert(T o) throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException;
 
-	public void update(T o);
+	public void update(T o) throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException;
 
-	public void delete(T o);
+	public void delete(T o) throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException;
 
-	public void find(T o);
+	public List<T> find(RicercaDb o) throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException;
 
-	public void findAll(T o);
+	public List<T> findAll(Boolean reverse) throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException;
 
-	public void findById(int id);
+	public T findById(int id) throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException;
 	
 }

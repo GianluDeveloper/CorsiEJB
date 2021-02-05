@@ -41,7 +41,7 @@ public class DocentiDao implements Dao<Docenti> {
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
 		Object[] campi = { o.getIdDocente() };
-		String sql = "DELETE `docenti WHERE `idDocente`=?";
+		String sql = "DELETE FROM `docenti` WHERE `idDocente`=?";
 		DBHandler dbHandler = new DBHandler();
 		dbHandler.sql(sql, campi);
 	}
@@ -87,7 +87,7 @@ public class DocentiDao implements Dao<Docenti> {
 
 		Object[] campi = { 1 };
 
-		String sql = "SELECT * FROM `docenti` WHERE ? ORDER BY `idDocente` ";
+		String sql = "SELECT * FROM `docenti` WHERE  ? ORDER BY `idDocente` ";
 		if (reverse)
 			sql += "DESC";
 
@@ -111,7 +111,7 @@ public class DocentiDao implements Dao<Docenti> {
 		// TODO Auto-generated method stub
 		Docenti corso = new Docenti();
 
-		Object[] campi = { 1 };
+		Object[] campi = { id };
 
 		String sql = "SELECT * FROM `docenti` WHERE idDocente = ? ";
 		DBHandler dbHandler = new DBHandler();

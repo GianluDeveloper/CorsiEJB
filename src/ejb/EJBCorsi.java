@@ -2,6 +2,8 @@ package ejb;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -35,7 +37,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			r.setErrorCode(1000);
-			r.setDescription(e.getStackTrace().toString());
+			r.setDescription(e.toString());
 		}
 		return r;
 	}
@@ -49,7 +51,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			r.setErrorCode(1000);
-			r.setDescription(e.getStackTrace().toString());
+			r.setDescription(e.toString());
 		}
 		return r;
 	}
@@ -64,7 +66,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			r.setErrorCode(1000);
-			r.setDescription(e.getStackTrace().toString());
+			r.setDescription(e.toString());
 		}
 		return r;
 	}
@@ -78,7 +80,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			r.setErrorCode(1000);
-			r.setDescription(e.getStackTrace().toString());
+			r.setDescription(e.toString());
 		}
 		return r;
 	}
@@ -92,10 +94,26 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			r.setErrorCode(1000);
-			r.setDescription(e.getStackTrace().toString());
+			r.setDescription(e.toString());
 		}
 		return r;
 	}
-	
+
+	@Override
+	public ResponseDao<Corsi> findById(Integer id) {
+		// TODO Auto-generated method stub
+		ResponseDao<Corsi> r = new ResponseDao<>();
+		try {
+			List<Corsi> iscrizioni = new ArrayList<>();
+			iscrizioni.add(dao.findById(id));
+			r.setList(iscrizioni);
+		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			r.setErrorCode(1000);
+			r.setDescription(e.toString());
+		}
+		return r;
+	}
 
 }

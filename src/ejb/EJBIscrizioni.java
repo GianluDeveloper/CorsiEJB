@@ -2,6 +2,8 @@ package ejb;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -34,7 +36,7 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			r.setErrorCode(1000);
-			r.setDescription(e.getStackTrace().toString());
+			r.setDescription(e.toString());
 		}
 		return r;
 	}
@@ -49,7 +51,7 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			r.setErrorCode(1000);
-			r.setDescription(e.getStackTrace().toString());
+			r.setDescription(e.toString());
 		}
 		return r;
 	}
@@ -64,7 +66,7 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			r.setErrorCode(1000);
-			r.setDescription(e.getStackTrace().toString());
+			r.setDescription(e.toString());
 		}
 		return r;
 	}
@@ -79,7 +81,7 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			r.setErrorCode(1000);
-			r.setDescription(e.getStackTrace().toString());
+			r.setDescription(e.toString());
 		}
 		return r;
 	}
@@ -94,7 +96,24 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			r.setErrorCode(1000);
-			r.setDescription(e.getStackTrace().toString());
+			r.setDescription(e.toString());
+		}
+		return r;
+	}
+	
+	@Override
+	public ResponseDao<Iscrizioni> findById(Integer id) {
+		// TODO Auto-generated method stub
+		ResponseDao<Iscrizioni> r = new ResponseDao<>();
+		try {
+			List<Iscrizioni> iscrizioni = new ArrayList<>();
+			iscrizioni.add(dao.findById(id));
+			r.setList(iscrizioni);
+		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			r.setErrorCode(1000);
+			r.setDescription(e.toString());
 		}
 		return r;
 	}

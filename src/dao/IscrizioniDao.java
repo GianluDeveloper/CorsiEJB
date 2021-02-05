@@ -41,7 +41,7 @@ public class IscrizioniDao implements Dao<Iscrizioni> {
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
 		Object[] campi = { o.getIdIscrizione() };
-		String sql = "DELETE `iscrizioni WHERE `idIscrizione`=?";
+		String sql = "DELETE FROM `iscrizioni` WHERE `idIscrizione` = ?  ";
 		DBHandler dbHandler = new DBHandler();
 		dbHandler.sql(sql, campi);
 	}
@@ -67,7 +67,7 @@ public class IscrizioniDao implements Dao<Iscrizioni> {
 		}
 
 		Object[] campi = { value };
-		String sql = "SELECT * FROM `docenti` WHERE `" + key + "`=?  ";
+		String sql = "SELECT * FROM `iscrizioni` WHERE `" + key + "`=?  ";
 		DBHandler dbHandler = new DBHandler();
 		dbHandler.sql(sql, campi);
 		List<Object> objs = dbHandler.getResponse();
@@ -87,7 +87,7 @@ public class IscrizioniDao implements Dao<Iscrizioni> {
 
 		Object[] campi = { 1 };
 
-		String sql = "SELECT * FROM `docenti` WHERE ? ORDER BY `idDocente` ";
+		String sql = "SELECT * FROM `iscrizioni` WHERE ? ORDER BY `idIscrizione` ";
 		if (reverse)
 			sql += "DESC";
 
@@ -111,9 +111,9 @@ public class IscrizioniDao implements Dao<Iscrizioni> {
 		// TODO Auto-generated method stub
 		Iscrizioni corso = new Iscrizioni();
 
-		Object[] campi = { 1 };
+		Object[] campi = { id };
 
-		String sql = "SELECT * FROM `docenti` WHERE idDocente = ? ";
+		String sql = "SELECT * FROM `iscrizioni` WHERE `idIscrizione` = ? ";
 		DBHandler dbHandler = new DBHandler();
 		dbHandler.sql(sql, campi);
 		List<Object> objs = dbHandler.getResponse();

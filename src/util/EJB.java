@@ -9,4 +9,5 @@ public interface EJB <T> {
 	public Response delete(T o);
 	public ResponseDao<T> find(RicercaDb o);
 	public ResponseDao<T> findAll(Boolean reverse);
+	public ResponseDao<T> findById(Integer id);
 }

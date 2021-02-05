@@ -20,8 +20,7 @@ public class CorsiDao implements Dao<Corsi> {
 	public void insert(Corsi o)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
-		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()),
-				DateHandler.toSql(o.getDataFine()) };
+		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()), DateHandler.toSql(o.getDataFine()) };
 		String sql = "INSERT INTO `corsi`(`idCorso`, `nomeCorso`, `dataInizio`, `dataFine`) VALUES ( NULL, ?, ?, ? )";
 		DBHandler dbHandler = new DBHandler();
 		dbHandler.sql(sql, campi);
@@ -43,9 +42,8 @@ public class CorsiDao implements Dao<Corsi> {
 	public void delete(Corsi o)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
-		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()), DateHandler.toSql(o.getDataFine()),
-				o.getIdCorso() };
-		String sql = "DELETE `corsi` WHERE `idCorso`=?";
+		Object[] campi = { o.getIdCorso() };
+		String sql = "DELETE FROM `corsi` WHERE `idCorso`=?";
 		DBHandler dbHandler = new DBHandler();
 		dbHandler.sql(sql, campi);
 	}
@@ -117,7 +115,7 @@ public class CorsiDao implements Dao<Corsi> {
 		// TODO Auto-generated method stub
 		Corsi corso = new Corsi();
 
-		Object[] campi = { 1 };
+		Object[] campi = { id };
 
 		String sql = "SELECT * FROM `corsi` WHERE idCorso = ? ";
 		DBHandler dbHandler = new DBHandler();

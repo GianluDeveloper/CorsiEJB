@@ -20,5 +20,6 @@ public interface EJBIscrizioniLocal {
 
 	public ResponseDao<Iscrizioni> findAll(Boolean reverse);
 
-
+	public ResponseDao<Iscrizioni> findById(Integer id);
+	
 }

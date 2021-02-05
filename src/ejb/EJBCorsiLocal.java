@@ -18,4 +18,7 @@ public interface EJBCorsiLocal {
 	public ResponseDao<Corsi> find(RicercaDb o);
 
 	public ResponseDao<Corsi> findAll(Boolean reverse);
+	
+	public ResponseDao<Corsi> findById(Integer id);
+	
 }

@@ -19,5 +19,8 @@ public interface EJBDocentiRemote {
 	public ResponseDao<Docenti> find(RicercaDb o);
 
 	public ResponseDao<Docenti> findAll(Boolean reverse);
+	
+	public ResponseDao<Docenti> findById(Integer id);
+	
 
 }

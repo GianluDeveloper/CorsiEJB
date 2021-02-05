@@ -1,8 +1,25 @@
 package util;
 
-public class RicercaDb {
+import java.io.Serializable;
+
+public class RicercaDb implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5454365728467231148L;
 	private String key;
 	private String value;
+
+	public RicercaDb(String key, String value) {
+		super();
+		this.key = key;
+		this.value = value;
+	}
+
+	public RicercaDb() {
+
+	}
 
 	public String getKey() {
 		return key;

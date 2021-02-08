@@ -27,7 +27,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 
 	CorsiDao dao = new CorsiDao();
 
-
+	@Override
 	public Response insert(Corsi o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
@@ -41,7 +41,8 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 		}
 		return r;
 	}
-
+	
+	@Override
 	public Response update(Corsi o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
@@ -57,6 +58,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 	}
 
 	
+	@Override
 	public Response delete(Corsi o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
@@ -71,6 +73,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 		return r;
 	}
 
+	@Override
 	public ResponseDao<Corsi> find(RicercaDb o) {
 		// TODO Auto-generated method stub
 		ResponseDao<Corsi> r = new ResponseDao<>();
@@ -85,6 +88,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 		return r;
 	}
 
+	@Override
 	public ResponseDao<Corsi> findAll(Boolean reverse) {
 		// TODO Auto-generated method stub
 		ResponseDao<Corsi> r = new ResponseDao<>();

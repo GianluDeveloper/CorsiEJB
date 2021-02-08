@@ -30,6 +30,7 @@ public class ServletTesting extends HttpServlet {
 	private EJBIscrizioniRemote bs3;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		response.addHeader("Content-Type", "text/plain; charset=utf-8");
 		// String msg = request.getParameter("m");
 		// String resp = bs.pippo(msg);
 		// Corso corso = new Corso(1,"Java Enterprise");
@@ -56,7 +57,7 @@ public class ServletTesting extends HttpServlet {
 				.append("\nInserted docente with error: " + r2.getDescription())
 				.append("\nInserted iscrizone with error: " + r3.getDescription());
 
-		c.setNomeCorso("il corso Ã¨ cambiato");
+		c.setNomeCorso("il corso è cambiato");
 		d.setNomeDocente("qualcuno nuovo");
 		i.setIdDipendente(69);
 

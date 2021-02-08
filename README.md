@@ -1,2 +1,3 @@
 # CorsiEJB
-Corsi con EJB Java
+
+Corsi backend con Enterprise JavaBeans

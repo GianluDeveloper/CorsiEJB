@@ -2,7 +2,7 @@ package ejb;
 
 import javax.ejb.Remote;
 
-import model.Corsi;
+import dto.CorsiDto;
 import response.Response;
 import response.ResponseDao;
 import util.RicercaDb;
@@ -10,16 +10,16 @@ import util.RicercaDb;
 @Remote
 public interface EJBCorsiRemote {
 
-	public Response insert(Corsi o);
+	public Response insert(CorsiDto o);
 
-	public Response update(Corsi o);
+	public Response update(CorsiDto o);
 
-	public Response delete(Corsi o);
+	public Response delete(CorsiDto o);
 
-	public ResponseDao<Corsi> find(RicercaDb o);
+	public ResponseDao<CorsiDto> find(RicercaDb o);
 
-	public ResponseDao<Corsi> findAll(Boolean reverse);
-	
-	public ResponseDao<Corsi> findById(Integer id);
-	
+	public ResponseDao<CorsiDto> findAll(Boolean reverse);
+
+	public ResponseDao<CorsiDto> findById(Integer id);
+
 }

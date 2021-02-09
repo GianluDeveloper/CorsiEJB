@@ -10,6 +10,8 @@ import javax.ejb.Stateless;
 import javax.naming.NamingException;
 
 import dao.CorsiDao;
+import dto.CorsiDto;
+import dto.builder.CorsiBuilder;
 import exceptions.NotHandledTypeException;
 import model.Corsi;
 import response.Response;
@@ -22,17 +24,17 @@ import util.RicercaDb;
  */
 @Stateless
 @LocalBean
-public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
+public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<CorsiDto> {
 
 
 	CorsiDao dao = new CorsiDao();
 
 	@Override
-	public Response insert(Corsi o) {
+	public Response insert(CorsiDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
 		try {
-			dao.insert(o);
+			dao.insert(CorsiBuilder.fromCorsiDtoToCorsi(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -43,11 +45,11 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 	}
 	
 	@Override
-	public Response update(Corsi o) {
+	public Response update(CorsiDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
 		try {
-			dao.update(o);
+			dao.update(CorsiBuilder.fromCorsiDtoToCorsi(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,11 +61,11 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 
 	
 	@Override
-	public Response delete(Corsi o) {
+	public Response delete(CorsiDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
 		try {
-			dao.delete(o);
+			dao.delete(CorsiBuilder.fromCorsiDtoToCorsi(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,11 +76,15 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 	}
 
 	@Override
-	public ResponseDao<Corsi> find(RicercaDb o) {
+	public ResponseDao<CorsiDto> find(RicercaDb o) {
 		// TODO Auto-generated method stub
-		ResponseDao<Corsi> r = new ResponseDao<>();
+		ResponseDao<CorsiDto> r = new ResponseDao<>();
 		try {
-			r.setList(dao.find(o));
+			List<CorsiDto> dtos = new ArrayList<>();
+			for(Corsi c : dao.find(o)) {
+				dtos.add(CorsiBuilder.fromCorsiToCorsiDto(c));
+			}
+			r.setList(dtos);
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -89,11 +95,15 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 	}
 
 	@Override
-	public ResponseDao<Corsi> findAll(Boolean reverse) {
+	public ResponseDao<CorsiDto> findAll(Boolean reverse) {
 		// TODO Auto-generated method stub
-		ResponseDao<Corsi> r = new ResponseDao<>();
+		ResponseDao<CorsiDto> r = new ResponseDao<>();
 		try {
-			r.setList(dao.findAll(reverse));
+			List<CorsiDto> dtos = new ArrayList<>();
+			for(Corsi c : dao.findAll(reverse)) {
+				dtos.add(CorsiBuilder.fromCorsiToCorsiDto(c));
+			}
+			r.setList(dtos);
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,12 +114,12 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 	}
 
 	@Override
-	public ResponseDao<Corsi> findById(Integer id) {
+	public ResponseDao<CorsiDto> findById(Integer id) {
 		// TODO Auto-generated method stub
-		ResponseDao<Corsi> r = new ResponseDao<>();
+		ResponseDao<CorsiDto> r = new ResponseDao<>();
 		try {
-			List<Corsi> iscrizioni = new ArrayList<>();
-			iscrizioni.add(dao.findById(id));
+			List<CorsiDto> iscrizioni = new ArrayList<>();
+			iscrizioni.add(CorsiBuilder.fromCorsiToCorsiDto(dao.findById(id)));
 			r.setList(iscrizioni);
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
@@ -119,5 +129,8 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<Corsi> {
 		}
 		return r;
 	}
+
+	
+	
 
 }

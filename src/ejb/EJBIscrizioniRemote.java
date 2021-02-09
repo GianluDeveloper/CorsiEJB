@@ -2,24 +2,24 @@ package ejb;
 
 import javax.ejb.Remote;
 
-import model.Iscrizioni;
+import dto.IscrizioniDto;
 import response.Response;
 import response.ResponseDao;
 import util.RicercaDb;
 
 @Remote
 public interface EJBIscrizioniRemote {
-	
-	public Response insert(Iscrizioni o);
 
-	public Response update(Iscrizioni o);
+	public Response insert(IscrizioniDto o);
 
-	public Response delete(Iscrizioni o);
+	public Response update(IscrizioniDto o);
 
-	public ResponseDao<Iscrizioni> find(RicercaDb o);
+	public Response delete(IscrizioniDto o);
 
-	public ResponseDao<Iscrizioni> findAll(Boolean reverse);
+	public ResponseDao<IscrizioniDto> find(RicercaDb o);
 
-	public ResponseDao<Iscrizioni> findById(Integer id);
-	
+	public ResponseDao<IscrizioniDto> findAll(Boolean reverse);
+
+	public ResponseDao<IscrizioniDto> findById(Integer id);
+
 }

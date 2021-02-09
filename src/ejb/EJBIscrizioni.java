@@ -10,6 +10,8 @@ import javax.ejb.Stateless;
 import javax.naming.NamingException;
 
 import dao.IscrizioniDao;
+import dto.IscrizioniDto;
+import dto.builder.IscrizioniBuilder;
 import exceptions.NotHandledTypeException;
 import model.Iscrizioni;
 import response.Response;
@@ -22,16 +24,16 @@ import util.RicercaDb;
  */
 @Stateless
 @LocalBean
-public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, EJB<Iscrizioni> {
+public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, EJB<IscrizioniDto> {
 
 	IscrizioniDao dao = new IscrizioniDao();
 
 	@Override
-	public Response insert(Iscrizioni o) {
+	public Response insert(IscrizioniDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
 		try {
-			dao.insert(o);
+			dao.insert(IscrizioniBuilder.fromIscrizioniDtoToIscrizioni(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,11 +44,11 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 	}
 
 	@Override
-	public Response update(Iscrizioni o) {
+	public Response update(IscrizioniDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
 		try {
-			dao.update(o);
+			dao.update(IscrizioniBuilder.fromIscrizioniDtoToIscrizioni(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,11 +59,11 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 	}
 
 	@Override
-	public Response delete(Iscrizioni o) {
+	public Response delete(IscrizioniDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
 		try {
-			dao.delete(o);
+			dao.delete(IscrizioniBuilder.fromIscrizioniDtoToIscrizioni(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,11 +74,15 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 	}
 
 	@Override
-	public ResponseDao<Iscrizioni> find(RicercaDb o) {
+	public ResponseDao<IscrizioniDto> find(RicercaDb o) {
 		// TODO Auto-generated method stub
-		ResponseDao<Iscrizioni> r = new ResponseDao<>();
+		ResponseDao<IscrizioniDto> r = new ResponseDao<>();
 		try {
-			r.setList(dao.find(o));
+			List<IscrizioniDto> lista = new ArrayList<>();
+			for(Iscrizioni c:dao.find(o)) {
+				lista.add(IscrizioniBuilder.fromIscrizioniToIscrizioniDto(c));
+			}
+			r.setList(lista);
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,11 +93,15 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 	}
 
 	@Override
-	public ResponseDao<Iscrizioni> findAll(Boolean reverse) {
+	public ResponseDao<IscrizioniDto> findAll(Boolean reverse) {
 		// TODO Auto-generated method stub
-		ResponseDao<Iscrizioni> r = new ResponseDao<>();
+		ResponseDao<IscrizioniDto> r = new ResponseDao<>();
 		try {
-			r.setList(dao.findAll(reverse));
+			List<IscrizioniDto> lista = new ArrayList<>();
+			for(Iscrizioni c:dao.findAll(reverse)) {
+				lista.add(IscrizioniBuilder.fromIscrizioniToIscrizioniDto(c));
+			}
+			r.setList(lista);
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,12 +112,13 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 	}
 	
 	@Override
-	public ResponseDao<Iscrizioni> findById(Integer id) {
+	public ResponseDao<IscrizioniDto> findById(Integer id) {
 		// TODO Auto-generated method stub
-		ResponseDao<Iscrizioni> r = new ResponseDao<>();
+		ResponseDao<IscrizioniDto> r = new ResponseDao<>();
 		try {
-			List<Iscrizioni> iscrizioni = new ArrayList<>();
-			iscrizioni.add(dao.findById(id));
+			List<IscrizioniDto> iscrizioni = new ArrayList<>();
+			Iscrizioni c = dao.findById(id);
+			iscrizioni.add(IscrizioniBuilder.fromIscrizioniToIscrizioniDto(c));
 			r.setList(iscrizioni);
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block

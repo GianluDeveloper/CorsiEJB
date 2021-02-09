@@ -2,7 +2,7 @@ package ejb;
 
 import javax.ejb.Remote;
 
-import model.Docenti;
+import dto.DocentiDto;
 import response.Response;
 import response.ResponseDao;
 import util.RicercaDb;
@@ -10,17 +10,17 @@ import util.RicercaDb;
 @Remote
 public interface EJBDocentiRemote {
 
-	public Response insert(Docenti o);
+	public Response insert(DocentiDto o);
 
-	public Response update(Docenti o);
+	public Response update(DocentiDto o);
 
-	public Response delete(Docenti o);
+	public Response delete(DocentiDto o);
 
-	public ResponseDao<Docenti> find(RicercaDb o);
+	public ResponseDao<DocentiDto> find(RicercaDb o);
 
-	public ResponseDao<Docenti> findAll(Boolean reverse);
+	public ResponseDao<DocentiDto> findAll(Boolean reverse);
 	
-	public ResponseDao<Docenti> findById(Integer id);
+	public ResponseDao<DocentiDto> findById(Integer id);
 	
 
 }

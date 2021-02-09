@@ -10,6 +10,8 @@ import javax.ejb.Stateless;
 import javax.naming.NamingException;
 
 import dao.DocentiDao;
+import dto.DocentiDto;
+import dto.builder.DocentiBuilder;
 import exceptions.NotHandledTypeException;
 import model.Docenti;
 import response.Response;
@@ -22,16 +24,16 @@ import util.RicercaDb;
  */
 @Stateless
 @LocalBean
-public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal,EJB<Docenti> {
+public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal, EJB<DocentiDto> {
 
 	DocentiDao dao = new DocentiDao();
 
 	@Override
-	public Response insert(Docenti o) {
+	public Response insert(DocentiDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
 		try {
-			dao.insert(o);
+			dao.insert(DocentiBuilder.fromDocentiDtoToDocenti(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,11 +44,11 @@ public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal,EJB<Docenti
 	}
 
 	@Override
-	public Response update(Docenti o) {
+	public Response update(DocentiDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
 		try {
-			dao.update(o);
+			dao.update(DocentiBuilder.fromDocentiDtoToDocenti(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,11 +59,11 @@ public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal,EJB<Docenti
 	}
 
 	@Override
-	public Response delete(Docenti o) {
+	public Response delete(DocentiDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
 		try {
-			dao.delete(o);
+			dao.delete(DocentiBuilder.fromDocentiDtoToDocenti(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,11 +74,15 @@ public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal,EJB<Docenti
 	}
 
 	@Override
-	public ResponseDao<Docenti> find(RicercaDb o) {
+	public ResponseDao<DocentiDto> find(RicercaDb o) {
 		// TODO Auto-generated method stub
-		ResponseDao<Docenti> r = new ResponseDao<>();
+		ResponseDao<DocentiDto> r = new ResponseDao<>();
 		try {
-			r.setList(dao.find(o));
+			List<DocentiDto> lista = new ArrayList<>();
+			for (Docenti c : dao.find(o)) {
+				lista.add(DocentiBuilder.fromDocentiToDocentiDto(c));
+			}
+			r.setList(lista);
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,11 +93,16 @@ public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal,EJB<Docenti
 	}
 
 	@Override
-	public ResponseDao<Docenti> findAll(Boolean reverse) {
+	public ResponseDao<DocentiDto> findAll(Boolean reverse) {
 		// TODO Auto-generated method stub
-		ResponseDao<Docenti> r = new ResponseDao<>();
+		ResponseDao<DocentiDto> r = new ResponseDao<DocentiDto>();
 		try {
-			r.setList(dao.findAll(reverse));
+			List<DocentiDto> lista = new ArrayList<>();
+			for (Docenti c : dao.findAll(reverse)) {
+				lista.add(DocentiBuilder.fromDocentiToDocentiDto(c));
+			}
+			r.setList(lista);
+
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,15 +110,16 @@ public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal,EJB<Docenti
 			r.setDescription(e.toString());
 		}
 		return r;
-	}   
-	
+	}
+
 	@Override
-	public ResponseDao<Docenti> findById(Integer id) {
+	public ResponseDao<DocentiDto> findById(Integer id) {
 		// TODO Auto-generated method stub
-		ResponseDao<Docenti> r = new ResponseDao<>();
+		ResponseDao<DocentiDto> r = new ResponseDao<>();
 		try {
-			List<Docenti> iscrizioni = new ArrayList<>();
-			iscrizioni.add(dao.findById(id));
+			List<DocentiDto> iscrizioni = new ArrayList<>();
+			Docenti c = dao.findById(id);
+			iscrizioni.add(DocentiBuilder.fromDocentiToDocentiDto(c));
 			r.setList(iscrizioni);
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
 			// TODO Auto-generated catch block
@@ -117,5 +129,5 @@ public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal,EJB<Docenti
 		}
 		return r;
 	}
-	
+
 }

@@ -31,7 +31,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<CorsiDto> {
 	@PersistenceContext(unitName="Hib4PU")
 	private EntityManager em;
 	
-	CorsiDao dao = new CorsiDao(em);
+	CorsiDao dao = new CorsiDao(this.em);
 
 	@Override
 	public Response insert(CorsiDto o) {

@@ -6,7 +6,7 @@
 
 
 	<persistence-unit name="Hib4PU" transaction-type="JTA">
-		<jta-data-source>java:jboss/datasources/CorsiDS</jta-data-source>
+		<jta-data-source>java:/CorsiDS</jta-data-source>
 			
 		<class>model.Corsi</class>
 		

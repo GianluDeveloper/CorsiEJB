@@ -26,23 +26,24 @@ public class CorsiDao implements Dao<Corsi> {
 	@Override
 	public void insert(Corsi o)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
-//		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()), DateHandler.toSql(o.getDataFine()) };
-//		String sql = "INSERT INTO `corsi`(`idCorso`, `nomeCorso`, `dataInizio`, `dataFine`) VALUES ( NULL, ?, ?, ? )";
-//		DBHandler dbHandler = new DBHandler();
-//		dbHandler.sql(sql, campi);
-		em.persist(o);
+		//		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()), DateHandler.toSql(o.getDataFine()) };
+		//		String sql = "INSERT INTO `corsi`(`idCorso`, `nomeCorso`, `dataInizio`, `dataFine`) VALUES ( NULL, ?, ?, ? )";
+		//		DBHandler dbHandler = new DBHandler();
+		//		dbHandler.sql(sql, campi);
+		this.em.persist(o);
+		
 	}
 
 	@Override
 	public void update(Corsi o)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
-		// TODO Auto-generated method stub
 
-		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()), DateHandler.toSql(o.getDataFine()),
-				o.getIdCorso() };
-		String sql = "UPDATE `corsi` SET `nomeCorso`=?,`dataInizio`=?,`dataFine`=? WHERE `idCorso`=?";
-		DBHandler dbHandler = new DBHandler();
-		dbHandler.sql(sql, campi);
+		this.em.refresh(o);
+		//		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()), DateHandler.toSql(o.getDataFine()),
+		//				o.getIdCorso() };
+		//		String sql = "UPDATE `corsi` SET `nomeCorso`=?,`dataInizio`=?,`dataFine`=? WHERE `idCorso`=?";
+		//		DBHandler dbHandler = new DBHandler();
+		//		dbHandler.sql(sql, campi);
 	}
 
 	@Override

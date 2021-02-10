@@ -9,8 +9,9 @@ import javax.persistence.Table;
 
 import util.DateHandler;
 
-@Entity
+@Entity(name="corsi")
 @Table(name="corsi")
+
 public class CorsiJpa implements Serializable {
 
 	/**

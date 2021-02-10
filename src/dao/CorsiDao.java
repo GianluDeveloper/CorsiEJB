@@ -42,8 +42,9 @@ public class CorsiDao implements Dao<Corsi> {
 	@Override
 	public void update(Corsi o)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
+		CorsiJpa c = new CorsiJpa(o.getIdCorso(),o.getNomeCorso(),o.getDataInizio(),o.getDataFine());
 
-		this.em.refresh(o);
+		this.em.merge(c);
 		//		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()), DateHandler.toSql(o.getDataFine()),
 		//				o.getIdCorso() };
 		//		String sql = "UPDATE `corsi` SET `nomeCorso`=?,`dataInizio`=?,`dataFine`=? WHERE `idCorso`=?";

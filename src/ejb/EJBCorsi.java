@@ -31,7 +31,6 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<CorsiDto> {
 	@PersistenceContext(unitName="Hib4PU")
 	private EntityManager em;
 	
-	CorsiDao dao = new CorsiDao();
 
 	@Override
 	public Response insert(CorsiDto o) {
@@ -51,7 +50,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<CorsiDto> {
 	
 	@Override
 	public Response update(CorsiDto o) {
-		// TODO Auto-generated method stub
+		CorsiDao dao = new CorsiDao(this.em);
 		Response r = new Response();
 		try {
 			dao.update(CorsiBuilder.fromCorsiDtoToCorsi(o));
@@ -67,7 +66,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<CorsiDto> {
 	
 	@Override
 	public Response delete(CorsiDto o) {
-		// TODO Auto-generated method stub
+		CorsiDao dao = new CorsiDao(this.em);
 		Response r = new Response();
 		try {
 			dao.delete(CorsiBuilder.fromCorsiDtoToCorsi(o));
@@ -82,7 +81,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<CorsiDto> {
 
 	@Override
 	public ResponseDao<CorsiDto> find(RicercaDb o) {
-		// TODO Auto-generated method stub
+		CorsiDao dao = new CorsiDao(this.em);
 		ResponseDao<CorsiDto> r = new ResponseDao<>();
 		try {
 			List<CorsiDto> dtos = new ArrayList<>();
@@ -101,7 +100,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<CorsiDto> {
 
 	@Override
 	public ResponseDao<CorsiDto> findAll(Boolean reverse) {
-		// TODO Auto-generated method stub
+		CorsiDao dao = new CorsiDao(this.em);
 		ResponseDao<CorsiDto> r = new ResponseDao<>();
 		try {
 			List<CorsiDto> dtos = new ArrayList<>();
@@ -120,7 +119,7 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<CorsiDto> {
 
 	@Override
 	public ResponseDao<CorsiDto> findById(Integer id) {
-		// TODO Auto-generated method stub
+		CorsiDao dao = new CorsiDao(this.em);
 		ResponseDao<CorsiDto> r = new ResponseDao<>();
 		try {
 			List<CorsiDto> iscrizioni = new ArrayList<>();

@@ -31,12 +31,13 @@ public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<CorsiDto> {
 	@PersistenceContext(unitName="Hib4PU")
 	private EntityManager em;
 	
-	CorsiDao dao = new CorsiDao(this.em);
+	CorsiDao dao = new CorsiDao();
 
 	@Override
 	public Response insert(CorsiDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
+		CorsiDao dao = new CorsiDao(this.em);
 		try {
 			dao.insert(CorsiBuilder.fromCorsiDtoToCorsi(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {

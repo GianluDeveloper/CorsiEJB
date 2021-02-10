@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 
 import exceptions.NotHandledTypeException;
 import model.Corsi;
+import model.CorsiJpa;
 import util.DBHandler;
 import util.Dao;
 import util.DateHandler;
@@ -22,6 +23,8 @@ public class CorsiDao implements Dao<Corsi> {
 	public CorsiDao(EntityManager em) {
 		this.em = em;
 	}
+	public CorsiDao() {
+	}
 
 	@Override
 	public void insert(Corsi o)
@@ -30,7 +33,9 @@ public class CorsiDao implements Dao<Corsi> {
 		//		String sql = "INSERT INTO `corsi`(`idCorso`, `nomeCorso`, `dataInizio`, `dataFine`) VALUES ( NULL, ?, ?, ? )";
 		//		DBHandler dbHandler = new DBHandler();
 		//		dbHandler.sql(sql, campi);
-		this.em.persist(o);
+		//o.setDataInizio(DateHandler.toSql(o.getDataInizio()));
+		CorsiJpa c = new CorsiJpa(o.getIdCorso(),o.getNomeCorso(),o.getDataInizio(),o.getDataFine());
+		this.em.persist(c);
 		
 	}
 

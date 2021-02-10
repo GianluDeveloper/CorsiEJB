@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
 
 import exceptions.NotHandledTypeException;
 import model.Corsi;
@@ -16,14 +17,20 @@ import util.RicercaDb;
 
 public class CorsiDao implements Dao<Corsi> {
 
+	private EntityManager em;
+
+	public CorsiDao(EntityManager em) {
+		this.em = em;
+	}
+
 	@Override
 	public void insert(Corsi o)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
-		// TODO Auto-generated method stub
-		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()), DateHandler.toSql(o.getDataFine()) };
-		String sql = "INSERT INTO `corsi`(`idCorso`, `nomeCorso`, `dataInizio`, `dataFine`) VALUES ( NULL, ?, ?, ? )";
-		DBHandler dbHandler = new DBHandler();
-		dbHandler.sql(sql, campi);
+//		Object[] campi = { o.getNomeCorso(), DateHandler.toSql(o.getDataInizio()), DateHandler.toSql(o.getDataFine()) };
+//		String sql = "INSERT INTO `corsi`(`idCorso`, `nomeCorso`, `dataInizio`, `dataFine`) VALUES ( NULL, ?, ?, ? )";
+//		DBHandler dbHandler = new DBHandler();
+//		dbHandler.sql(sql, campi);
+		em.persist(o);
 	}
 
 	@Override

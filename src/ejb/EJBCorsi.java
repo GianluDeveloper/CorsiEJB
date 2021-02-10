@@ -8,6 +8,8 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import dao.CorsiDao;
 import dto.CorsiDto;
@@ -26,8 +28,10 @@ import util.RicercaDb;
 @LocalBean
 public class EJBCorsi implements EJBCorsiRemote, EJBCorsiLocal, EJB<CorsiDto> {
 
-
-	CorsiDao dao = new CorsiDao();
+	@PersistenceContext(unitName="Hib4PU")
+	private EntityManager em;
+	
+	CorsiDao dao = new CorsiDao(em);
 
 	@Override
 	public Response insert(CorsiDto o) {

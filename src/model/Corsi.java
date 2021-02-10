@@ -2,12 +2,17 @@ package model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Corsi implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4980956984399067851L;
+	@Id
 	private Integer idCorso;
 	private String nomeCorso, dataInizio, dataFine;
 

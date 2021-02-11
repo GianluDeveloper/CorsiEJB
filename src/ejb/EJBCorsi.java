@@ -15,7 +15,7 @@ import dao.CorsiDao;
 import dto.CorsiDto;
 import dto.builder.CorsiBuilder;
 import exceptions.NotHandledTypeException;
-import model2.Corsi;
+import model.Corsi;
 import response.Response;
 import response.ResponseDao;
 import util.EJB;

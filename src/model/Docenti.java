@@ -1,48 +1,89 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
+
+/**
+ * The persistent class for the docenti database table.
+ * 
+ */
+@Entity
+@Table(name="docenti")
+@NamedQuery(name="Docenti.findAll", query="SELECT d FROM Docenti d")
 public class Docenti implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2264431570213490775L;
-	private int idDocente, idCorso;
+	@Id
+	private int idDocente;
+
 	private String nomeDocente;
 
-	public Docenti(int idDocente, int idCorso, String nomeDocente) {
-		this.idDocente = idDocente;
-		this.idCorso = idCorso;
-		this.nomeDocente = nomeDocente;
-	}
+	//bi-directional many-to-one association to Corsi
+	@ManyToOne
+	@JoinColumn(name="idCorso")
+	private Corsi corsi;
+
+	//bi-directional many-to-one association to Iscrizioni
+	@OneToMany(mappedBy="docenti")
+	private List<Iscrizioni> iscrizionis;
 
 	public Docenti() {
-
 	}
 
 	public int getIdDocente() {
-		return idDocente;
+		return this.idDocente;
 	}
 
 	public void setIdDocente(int idDocente) {
 		this.idDocente = idDocente;
 	}
 
-	public int getIdCorso() {
-		return idCorso;
-	}
-
-	public void setIdCorso(int idCorso) {
-		this.idCorso = idCorso;
-	}
-
 	public String getNomeDocente() {
-		return nomeDocente;
+		return this.nomeDocente;
 	}
 
 	public void setNomeDocente(String nomeDocente) {
 		this.nomeDocente = nomeDocente;
+	}
+
+	public Corsi getCorsi() {
+		return this.corsi;
+	}
+
+	public void setCorsi(Corsi corsi) {
+		this.corsi = corsi;
+	}
+
+	public List<Iscrizioni> getIscrizionis() {
+		return this.iscrizionis;
+	}
+
+	public void setIscrizionis(List<Iscrizioni> iscrizionis) {
+		this.iscrizionis = iscrizionis;
+	}
+
+	public Iscrizioni addIscrizioni(Iscrizioni iscrizioni) {
+		getIscrizionis().add(iscrizioni);
+		iscrizioni.setDocenti(this);
+
+		return iscrizioni;
+	}
+
+	public Iscrizioni removeIscrizioni(Iscrizioni iscrizioni) {
+		getIscrizionis().remove(iscrizioni);
+		iscrizioni.setDocenti(null);
+
+		return iscrizioni;
+	}
+
+	public Docenti(int idDocente, String nomeDocente, Corsi corsi, List<Iscrizioni> iscrizionis) {
+		super();
+		this.idDocente = idDocente;
+		this.nomeDocente = nomeDocente;
+		this.corsi = corsi;
+		this.iscrizionis = iscrizionis;
 	}
 
 }

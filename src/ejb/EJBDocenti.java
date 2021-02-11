@@ -8,6 +8,8 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import dao.DocentiDao;
 import dto.DocentiDto;
@@ -26,11 +28,13 @@ import util.RicercaDb;
 @LocalBean
 public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal, EJB<DocentiDto> {
 
-	DocentiDao dao = new DocentiDao();
+	@PersistenceContext(unitName="Hib4PU")
+	private EntityManager em;
 
 	@Override
 	public Response insert(DocentiDto o) {
 		// TODO Auto-generated method stub
+		DocentiDao dao = new DocentiDao(this.em);
 		Response r = new Response();
 		try {
 			dao.insert(DocentiBuilder.fromDocentiDtoToDocenti(o));
@@ -46,6 +50,7 @@ public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal, EJB<Docent
 	@Override
 	public Response update(DocentiDto o) {
 		// TODO Auto-generated method stub
+		DocentiDao dao = new DocentiDao(this.em);
 		Response r = new Response();
 		try {
 			dao.update(DocentiBuilder.fromDocentiDtoToDocenti(o));
@@ -61,6 +66,7 @@ public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal, EJB<Docent
 	@Override
 	public Response delete(DocentiDto o) {
 		// TODO Auto-generated method stub
+		DocentiDao dao = new DocentiDao(this.em);
 		Response r = new Response();
 		try {
 			dao.delete(DocentiBuilder.fromDocentiDtoToDocenti(o));
@@ -76,6 +82,7 @@ public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal, EJB<Docent
 	@Override
 	public ResponseDao<DocentiDto> find(RicercaDb o) {
 		// TODO Auto-generated method stub
+		DocentiDao dao = new DocentiDao(this.em);
 		ResponseDao<DocentiDto> r = new ResponseDao<>();
 		try {
 			List<DocentiDto> lista = new ArrayList<>();
@@ -95,10 +102,12 @@ public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal, EJB<Docent
 	@Override
 	public ResponseDao<DocentiDto> findAll(Boolean reverse) {
 		// TODO Auto-generated method stub
+		DocentiDao dao = new DocentiDao(this.em);
 		ResponseDao<DocentiDto> r = new ResponseDao<DocentiDto>();
 		try {
 			List<DocentiDto> lista = new ArrayList<>();
-			for (Docenti c : dao.findAll(reverse)) {
+			List<Docenti> trovati = dao.findAll(reverse);
+			for (Docenti c : trovati) {
 				lista.add(DocentiBuilder.fromDocentiToDocentiDto(c));
 			}
 			r.setList(lista);
@@ -115,6 +124,7 @@ public class EJBDocenti implements EJBDocentiRemote, EJBDocentiLocal, EJB<Docent
 	@Override
 	public ResponseDao<DocentiDto> findById(Integer id) {
 		// TODO Auto-generated method stub
+		DocentiDao dao = new DocentiDao(this.em);
 		ResponseDao<DocentiDto> r = new ResponseDao<>();
 		try {
 			List<DocentiDto> iscrizioni = new ArrayList<>();

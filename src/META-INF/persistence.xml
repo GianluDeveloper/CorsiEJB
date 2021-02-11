@@ -9,6 +9,8 @@
 		<jta-data-source>java:/CorsiDS</jta-data-source>
 			
 		<class>model.Corsi</class>
+		<class>model.Docenti</class>
+		<class>model.Iscrizioni</class>
 		
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

@@ -10,13 +10,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import exceptions.NotHandledTypeException;
-import model2.Iscrizioni;
+import model.Iscrizioni;
 import util.Dao;
 import util.RicercaDb;
 
 public class IscrizioniDao implements Dao<Iscrizioni> {
 
 	EntityManager em;
+
+	public IscrizioniDao(EntityManager em) {
+		this.em = em;
+	}
+
 	@Override
 	public void insert(Iscrizioni o)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
@@ -43,7 +48,7 @@ public class IscrizioniDao implements Dao<Iscrizioni> {
 	public void delete(Iscrizioni o)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 		// TODO Auto-generated method stub
-		Iscrizioni i =  em.find(Iscrizioni.class, o.getIdIscrizione());
+		Iscrizioni i = em.find(Iscrizioni.class, o.getIdIscrizione());
 		em.remove(i);
 //		Object[] campi = { o.getIdIscrizione() };
 //		String sql = "DELETE FROM `iscrizioni` WHERE `idIscrizione` = ?  ";
@@ -72,9 +77,9 @@ public class IscrizioniDao implements Dao<Iscrizioni> {
 			throw new SQLException("Chiave colonna '" + key + "' non valida");
 		}
 		int intValue = Integer.parseInt(value);
-		Query q = em.createQuery("FROM c WHERE `"+key+"` = :value");
+		Query q = em.createQuery("FROM c WHERE `" + key + "` = :value");
 		q.setParameter("value", intValue);
-		
+
 		res = q.getResultList();
 //		Object[] campi = { value };
 //		String sql = "SELECT * FROM `iscrizioni` WHERE `" + key + "`=?  ";
@@ -93,7 +98,7 @@ public class IscrizioniDao implements Dao<Iscrizioni> {
 	@Override
 	public List<Iscrizioni> findAll(Boolean reverse)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
-		return em.createQuery("Iscrizioni.findAll").getResultList();
+		return em.createNamedQuery("Iscrizioni.findAll").getResultList();
 //		
 //		List<Iscrizioni> res = new ArrayList<>();
 //

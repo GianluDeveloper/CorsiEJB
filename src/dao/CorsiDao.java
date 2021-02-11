@@ -9,7 +9,7 @@ import javax.naming.NamingException;
 import javax.persistence.EntityManager;
 
 import exceptions.NotHandledTypeException;
-import model2.Corsi;
+import model.Corsi;
 //import model.CorsiJpa;
 import util.Dao;
 import util.DateHandler;
@@ -94,21 +94,21 @@ public class CorsiDao implements Dao<Corsi> {
 		switch(key) {
 			case "idCorso":
 				int valueConverted = Integer.parseInt(value);
-				listaCorsi = (List<Corsi>) em.createQuery("SELECT c FROM corsi c WHERE " + key + " = :value ")
+				listaCorsi = (List<Corsi>) em.createQuery("SELECT c FROM Corsi c WHERE " + key + " = :value ")
 				.setParameter("value", valueConverted).getResultList();
 				break;
 			case "dataInizio":
 				java.sql.Date dateConverted1 = DateHandler.toSql(value);
-				listaCorsi = (List<Corsi>) em.createQuery("SELECT c FROM corsi c WHERE " + key + " = :value ")
+				listaCorsi = (List<Corsi>) em.createQuery("SELECT c FROM Corsi c WHERE " + key + " = :value ")
 				.setParameter("value", dateConverted1).getResultList();
 				break;
 			case "dataFine":
 				java.sql.Date dateConverted2 = DateHandler.toSql(value);
-				listaCorsi = (List<Corsi>) em.createQuery("SELECT c FROM corsi c WHERE " + key + " = :value ")
+				listaCorsi = (List<Corsi>) em.createQuery("SELECT c FROM Corsi c WHERE " + key + " = :value ")
 				.setParameter("value", dateConverted2).getResultList();
 				break;
 			default:
-				listaCorsi = (List<Corsi>) em.createQuery("SELECT c FROM corsi c WHERE " + key + " = :value ")
+				listaCorsi = (List<Corsi>) em.createQuery("SELECT c FROM Corsi c WHERE " + key + " = :value ")
 				.setParameter("value", value).getResultList();
 		}
 		
@@ -130,13 +130,15 @@ public class CorsiDao implements Dao<Corsi> {
 //		}
 		return listaCorsi;
 	}
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Corsi> findAll(Boolean reverse)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
 
-		@SuppressWarnings("unchecked")
-		List<Corsi> listaCorsi = em.createQuery("Corsi.findAll").getResultList();
+//		Corsi c = (Corsi) em.createQuery("SELECT c FROM Corsi c").getSingleResult();
+//		System.out.println("molto "+c.getIdCorso());
+		List<Corsi> listaCorsi = em.createQuery("SELECT c FROM Corsi c").getResultList();
+		System.out.print(listaCorsi.size());
 //		List<Corsi> res = new ArrayList<>();
 //		for (CorsiJpa o : listaCorsi) {
 //			Corsi c = new Corsi(o.getIdCorso(), o.getNomeCorso(), DateHandler.fromSql(o.getDataInizio()),

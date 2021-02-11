@@ -1,9 +1,9 @@
 package dto.builder;
 
 import dto.IscrizioniDto;
-import model2.Iscrizioni;
-import model2.Docenti;
-import model2.Corsi;
+import model.Corsi;
+import model.Docenti;
+import model.Iscrizioni;
 
 public class IscrizioniBuilder {
 	public static Iscrizioni fromIscrizioniDtoToIscrizioni(IscrizioniDto dto) {

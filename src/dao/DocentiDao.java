@@ -10,13 +10,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import exceptions.NotHandledTypeException;
-import model2.Docenti;
+import model.Docenti;
 import util.Dao;
 import util.RicercaDb;
 
 public class DocentiDao implements Dao<Docenti> {
 	private EntityManager em;
-
+	public DocentiDao(EntityManager em){
+		this.em=em;
+	}
 	@Override
 	public void insert(Docenti o)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
@@ -96,7 +98,7 @@ public class DocentiDao implements Dao<Docenti> {
 	@Override
 	public List<Docenti> findAll(Boolean reverse)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
-		Query q = em.createQuery("Docenti.findAll");
+		Query q = em.createNamedQuery("Docenti.findAll");
 		@SuppressWarnings("unchecked")
 		List<Docenti> res = q.getResultList();
 //		List<Docenti> res = new ArrayList<>();

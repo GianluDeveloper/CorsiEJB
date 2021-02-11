@@ -8,6 +8,8 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.naming.NamingException;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import dao.IscrizioniDao;
 import dto.IscrizioniDto;
@@ -26,11 +28,14 @@ import util.RicercaDb;
 @LocalBean
 public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, EJB<IscrizioniDto> {
 
-	IscrizioniDao dao = new IscrizioniDao();
-
+	@PersistenceContext(unitName="Hib4PU")
+	private EntityManager em;
+	
 	@Override
 	public Response insert(IscrizioniDto o) {
 		// TODO Auto-generated method stub
+		IscrizioniDao dao = new IscrizioniDao(this.em);
+
 		Response r = new Response();
 		try {
 			dao.insert(IscrizioniBuilder.fromIscrizioniDtoToIscrizioni(o));
@@ -47,6 +52,8 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 	public Response update(IscrizioniDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
+		IscrizioniDao dao = new IscrizioniDao(this.em);
+
 		try {
 			dao.update(IscrizioniBuilder.fromIscrizioniDtoToIscrizioni(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
@@ -62,6 +69,8 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 	public Response delete(IscrizioniDto o) {
 		// TODO Auto-generated method stub
 		Response r = new Response();
+		IscrizioniDao dao = new IscrizioniDao(this.em);
+
 		try {
 			dao.delete(IscrizioniBuilder.fromIscrizioniDtoToIscrizioni(o));
 		} catch (ClassNotFoundException | SQLException | NotHandledTypeException | NamingException | ParseException e) {
@@ -76,6 +85,8 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 	@Override
 	public ResponseDao<IscrizioniDto> find(RicercaDb o) {
 		// TODO Auto-generated method stub
+		IscrizioniDao dao = new IscrizioniDao(this.em);
+
 		ResponseDao<IscrizioniDto> r = new ResponseDao<>();
 		try {
 			List<IscrizioniDto> lista = new ArrayList<>();
@@ -95,6 +106,8 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 	@Override
 	public ResponseDao<IscrizioniDto> findAll(Boolean reverse) {
 		// TODO Auto-generated method stub
+		IscrizioniDao dao = new IscrizioniDao(this.em);
+
 		ResponseDao<IscrizioniDto> r = new ResponseDao<>();
 		try {
 			List<IscrizioniDto> lista = new ArrayList<>();
@@ -114,6 +127,8 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 	@Override
 	public ResponseDao<IscrizioniDto> findById(Integer id) {
 		// TODO Auto-generated method stub
+		IscrizioniDao dao = new IscrizioniDao(this.em);
+
 		ResponseDao<IscrizioniDto> r = new ResponseDao<>();
 		try {
 			List<IscrizioniDto> iscrizioni = new ArrayList<>();

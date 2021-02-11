@@ -19,4 +19,10 @@ public class DateHandler {
 
 		return converted;
 	}
+	public static String fromUtil(java.util.Date date) throws ParseException {
+		SimpleDateFormat sp = new SimpleDateFormat("dd/MM/yyyy");
+		String converted = sp.format(date);
+
+		return converted;
+	}
 }

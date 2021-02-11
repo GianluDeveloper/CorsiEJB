@@ -67,6 +67,7 @@ public class CorsiDao implements Dao<Corsi> {
 		// dbHandler.sql(sql, campi);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Corsi> find(RicercaDb rdb)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
@@ -86,10 +87,30 @@ public class CorsiDao implements Dao<Corsi> {
 		if (notAllowed) {
 			throw new SQLException("Chiave colonna '" + key + "' non valida");
 		}
-
-		@SuppressWarnings("unchecked")
-		List<CorsiJpa> listaCorsi = (List<CorsiJpa>) em.createQuery("SELECT c FROM corsi c WHERE " + key + " = :value ")
+		
+		// funzioni di conversione per JPA
+		List<CorsiJpa> listaCorsi = new ArrayList<>();
+		switch(key) {
+			case "idCorso":
+				int valueConverted = Integer.parseInt(value);
+				listaCorsi = (List<CorsiJpa>) em.createQuery("SELECT c FROM corsi c WHERE " + key + " = :value ")
+				.setParameter("value", valueConverted).getResultList();
+				break;
+			case "dataInizio":
+				java.sql.Date dateConverted1 = DateHandler.toSql(value);
+				listaCorsi = (List<CorsiJpa>) em.createQuery("SELECT c FROM corsi c WHERE " + key + " = :value ")
+				.setParameter("value", dateConverted1).getResultList();
+				break;
+			case "dataFine":
+				java.sql.Date dateConverted2 = DateHandler.toSql(value);
+				listaCorsi = (List<CorsiJpa>) em.createQuery("SELECT c FROM corsi c WHERE " + key + " = :value ")
+				.setParameter("value", dateConverted2).getResultList();
+				break;
+			default:
+				listaCorsi = (List<CorsiJpa>) em.createQuery("SELECT c FROM corsi c WHERE " + key + " = :value ")
 				.setParameter("value", value).getResultList();
+		}
+		
 		for (CorsiJpa o : listaCorsi) {
 			Corsi c = new Corsi(o.getIdCorso(), o.getNomeCorso(), DateHandler.fromSql(o.getDataInizio()),
 					DateHandler.fromSql(o.getDataFine()));

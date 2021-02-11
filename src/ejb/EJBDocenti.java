@@ -16,6 +16,7 @@ import dto.DocentiDto;
 import dto.builder.DocentiBuilder;
 import exceptions.NotHandledTypeException;
 import model.Docenti;
+import model.Iscrizioni;
 import response.Response;
 import response.ResponseDao;
 import util.EJB;

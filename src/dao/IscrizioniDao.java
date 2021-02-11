@@ -77,7 +77,7 @@ public class IscrizioniDao implements Dao<Iscrizioni> {
 			throw new SQLException("Chiave colonna '" + key + "' non valida");
 		}
 		int intValue = Integer.parseInt(value);
-		Query q = em.createQuery("FROM c WHERE `" + key + "` = :value");
+		Query q = em.createQuery("FROM  Iscrizioni c WHERE " + key + " = :value");
 		q.setParameter("value", intValue);
 
 		res = q.getResultList();

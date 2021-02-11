@@ -15,6 +15,7 @@ import dao.IscrizioniDao;
 import dto.IscrizioniDto;
 import dto.builder.IscrizioniBuilder;
 import exceptions.NotHandledTypeException;
+import model.Corsi;
 import model.Iscrizioni;
 import response.Response;
 import response.ResponseDao;
@@ -28,9 +29,9 @@ import util.RicercaDb;
 @LocalBean
 public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, EJB<IscrizioniDto> {
 
-	@PersistenceContext(unitName="Hib4PU")
+	@PersistenceContext(unitName = "Hib4PU")
 	private EntityManager em;
-	
+
 	@Override
 	public Response insert(IscrizioniDto o) {
 		// TODO Auto-generated method stub
@@ -90,7 +91,13 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 		ResponseDao<IscrizioniDto> r = new ResponseDao<>();
 		try {
 			List<IscrizioniDto> lista = new ArrayList<>();
-			for(Iscrizioni c:dao.find(o)) {
+			for (Iscrizioni c : dao.find(o)) {
+				
+				String iscritto = String.format("Il dipendente '%d' si e' iscritto al corso '%s' che dura da %s a %s ",
+						c.getIdDipendente(), c.getCorsi().getNomeCorso(), c.getCorsi().getDataInizio(),
+						c.getCorsi().getDataFine());
+				System.out.println(iscritto);
+				
 				lista.add(IscrizioniBuilder.fromIscrizioniToIscrizioniDto(c));
 			}
 			r.setList(lista);
@@ -111,7 +118,12 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 		ResponseDao<IscrizioniDto> r = new ResponseDao<>();
 		try {
 			List<IscrizioniDto> lista = new ArrayList<>();
-			for(Iscrizioni c:dao.findAll(reverse)) {
+			for (Iscrizioni c : dao.findAll(reverse)) {
+				
+				// ="l'iscrizione "+c.getIdIscrizione()+" al corso
+				// "+c.getCorsi().getNomeCorso()+;
+
+				
 				lista.add(IscrizioniBuilder.fromIscrizioniToIscrizioniDto(c));
 			}
 			r.setList(lista);
@@ -123,7 +135,7 @@ public class EJBIscrizioni implements EJBIscrizioniRemote, EJBIscrizioniLocal, E
 		}
 		return r;
 	}
-	
+
 	@Override
 	public ResponseDao<IscrizioniDto> findById(Integer id) {
 		// TODO Auto-generated method stub

@@ -71,7 +71,7 @@ public class DocentiDao implements Dao<Docenti> {
 		if (notAllowed) {
 			throw new SQLException("Chiave colonna '" + key + "' non valida");
 		}
-
+		em.createQuery("FROM c WHERE `" + key + "`= :value " )
 //		Object[] campi = { value };
 //		String sql = "SELECT * FROM `docenti` WHERE `" + key + "`=?  ";
 //		DBHandler dbHandler = new DBHandler();

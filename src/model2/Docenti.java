@@ -13,6 +13,14 @@ import java.util.List;
 @Table(name="docenti")
 @NamedQuery(name="Docenti.findAll", query="SELECT d FROM Docenti d")
 public class Docenti implements Serializable {
+	public Docenti(int idDocente, String nomeDocente, Corsi corsi, List<Iscrizioni> iscrizionis) {
+		super();
+		this.idDocente = idDocente;
+		this.nomeDocente = nomeDocente;
+		this.corsi = corsi;
+		this.iscrizionis = iscrizionis;
+	}
+
 	private static final long serialVersionUID = 1L;
 
 	@Id

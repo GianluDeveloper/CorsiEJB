@@ -11,7 +11,6 @@ import javax.persistence.Query;
 
 import exceptions.NotHandledTypeException;
 import model2.Docenti;
-import util.DBHandler;
 import util.Dao;
 import util.RicercaDb;
 
@@ -52,6 +51,7 @@ public class DocentiDao implements Dao<Docenti> {
 //		dbHandler.sql(sql, campi);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Docenti> find(RicercaDb o)
 			throws ClassNotFoundException, SQLException, NotHandledTypeException, NamingException, ParseException {
@@ -71,7 +71,15 @@ public class DocentiDao implements Dao<Docenti> {
 		if (notAllowed) {
 			throw new SQLException("Chiave colonna '" + key + "' non valida");
 		}
-		em.createQuery("FROM c WHERE `" + key + "`= :value " )
+		Query q = em.createQuery("FROM c WHERE `" + key + "`= :value " );
+		if(key.equals("nomeDocente")) {
+			q.setParameter("value", value);
+		}
+		else {
+			int convertedValue = Integer.parseInt(value);
+			q.setParameter("value", convertedValue);
+		}
+		res = q.getResultList();
 //		Object[] campi = { value };
 //		String sql = "SELECT * FROM `docenti` WHERE `" + key + "`=?  ";
 //		DBHandler dbHandler = new DBHandler();

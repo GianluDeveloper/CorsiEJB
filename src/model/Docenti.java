@@ -21,12 +21,12 @@ public class Docenti implements Serializable {
 	private String nomeDocente;
 
 	//bi-directional many-to-one association to Corsi
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="idCorso")
 	private Corsi corsi;
 
 	//bi-directional many-to-one association to Iscrizioni
-	@OneToMany(mappedBy="docenti")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="docenti")
 	private List<Iscrizioni> iscrizionis;
 
 	public Docenti() {

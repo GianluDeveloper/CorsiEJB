@@ -20,7 +20,7 @@ public class Iscrizioni implements Serializable {
 	private int idDipendente;
 
 	//bi-directional many-to-one association to Corsi
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="idCorso")
 	private Corsi corsi;
 
@@ -33,7 +33,7 @@ public class Iscrizioni implements Serializable {
 	}
 
 	//bi-directional many-to-one association to Docenti
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="idDocente")
 	private Docenti docenti;
 

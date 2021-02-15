@@ -28,7 +28,7 @@ public class Corsi implements Serializable {
 	private String nomeCorso;
 
 	//bi-directional many-to-one association to Docenti
-	@OneToMany(mappedBy="corsi")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="corsi")
 	private List<Docenti> docentis;
 
 	//bi-directional many-to-one association to Iscrizioni

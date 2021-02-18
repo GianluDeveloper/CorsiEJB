@@ -12,13 +12,13 @@ import javax.jms.TextMessage;
  */
 @MessageDriven(activationConfig = {
 		@ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-		@ActivationConfigProperty(propertyName = "destination", propertyValue = "java:/jms/queue/CODA") })
-public class Consumer implements MessageListener {
+		@ActivationConfigProperty(propertyName = "destination", propertyValue = "java:/jms/queue/MailQueue") })
+public class MailMDB implements MessageListener {
 
 	/**
 	 * Default constructor.
 	 */
-	public Consumer() {
+	public MailMDB() {
 		// TODO Auto-generated constructor stub
 	}
 
